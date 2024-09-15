@@ -1,0 +1,3 @@
+/Users/valentinakond/currency_converter/bld2/CMakeFiles/CurrencyConverter.dir
+/Users/valentinakond/currency_converter/bld2/CMakeFiles/edit_cache.dir
+/Users/valentinakond/currency_converter/bld2/CMakeFiles/rebuild_cache.dir
