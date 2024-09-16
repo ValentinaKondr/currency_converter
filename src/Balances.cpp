@@ -7,19 +7,23 @@ void Balances::notifyObservers() {
     }
 }
 
-bool Balances::addAmount(Currency currency, double amount)
+bool Balances::canWithdraw(Currency currency, double amount)
 {
-    bool isOk{ false };
-    if (balance[currency] + amount > 0)
-    {
-        balance[currency] += amount;
-        isOk = true;
-    }
-
-    notifyObservers();
-    return isOk;
+    return balance[currency] - amount > 0;
 }
 
+void Balances::addAmount(Currency currency, double amount)
+{
+    balance[currency] += amount;
+}
+
+void Balances::withdrawAmount(Currency currency, double amount)
+{
+    if (canWithdraw(currency, amount))
+    {
+        balance[currency] -= amount;
+    }
+}
 void Balances::displayBalances() {
     std::cout << std::fixed << std::setprecision(2);
     std::cout << owner << ":\n";

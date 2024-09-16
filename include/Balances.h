@@ -26,7 +26,9 @@ public:
     void removeObserver(IObserver* obs) override;
     void notifyObservers() override;
 
-    bool addAmount(Currency currency, double amount);
+    void addAmount(Currency currency, double amount);
+    void withdrawAmount(Currency currency, double amount);
+    bool canWithdraw(Currency currency, double amount);
 
 private:
     std::string owner;

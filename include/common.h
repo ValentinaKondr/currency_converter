@@ -13,10 +13,19 @@ enum class Currency : uint8_t
     BTC
 };
 
-const std::map<Currency, std::string> CURRENCY_NAMES {
-    {Currency::RUB, std::string{"RUB"}},
-    {Currency::USD, std::string{"USD"}},
-    {Currency::EUR, std::string{"EUR"}},
-    {Currency::USDT, std::string{"USDT"}},
-    {Currency::BTC, std::string{"BTC"}},
-};
+inline std::string getCurrecyNameByEnum(Currency curr) {
+    switch(curr) {
+    case Currency::RUB:
+        return "Rub";
+    case Currency::USD:
+        return "Usd";
+    case Currency::EUR:
+        return "Euro";
+    case Currency::USDT:
+        return "USDT";
+    case Currency::BTC:
+        return "BTC";
+    default:
+        return "Error";
+    }
+}

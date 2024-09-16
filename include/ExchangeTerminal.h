@@ -48,13 +48,19 @@ public:
 
     bool performExchange(const Currency& from, const Currency& to, double amount) {
         const auto rate{rates.getRate(from, to)};
+        const auto convertedCur{ amount * rate };
         if (rate == -1) {
             std::cout << "Ошибка: Недопустимая валютная пара!\n";
             return false;
         }
 
-        if (user.addAmount(from, - amount)) {
-            terminal.addAmount(to, amount);
+        if (user.canWithdraw(from, amount) && terminal.canWithdraw(to, amount * rate)) {
+            user.addAmount(to, convertedCur);
+            user.withdrawAmount(from, amount);
+            terminal.addAmount(from, amount);
+            terminal.withdrawAmount(to, convertedCur);
+            // TODO remove observer
+            terminal.notifyObservers();
             return true;
         } else {
             std::cout << "Ошибка: Недостаточно средств!\n";

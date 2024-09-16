@@ -15,7 +15,7 @@ struct std::hash<std::pair<Currency, Currency>>
 {
     std::size_t operator()(std::pair<Currency, Currency> pair) const
     {
-        return int(pair.first) * 10 + int(pair.second);
+        return (int(pair.first) + 1) * 10 + int(pair.second);
     }
 };
 
@@ -31,11 +31,11 @@ private:
 public:
     ExchangeRates() {
         // initial values
-        rates[{Currency::RUB, Currency::USD}] = 90;
-        rates[{Currency::RUB, Currency::EUR}] = 95;
-        rates[{Currency::USD, Currency::EUR}] = 1.05;
-        rates[{Currency::USD, Currency::USDT}] = 1.00;
-        rates[{Currency::USD, Currency::BTC}] = 0.00003;
+        rates[{Currency::RUB, Currency::USD}] = 1/90.;
+        rates[{Currency::RUB, Currency::EUR}] = 1/95.;
+        rates[{Currency::USD, Currency::EUR}] = 1/1.05;
+        rates[{Currency::USD, Currency::USDT}] = 1/1.00;
+        rates[{Currency::USD, Currency::BTC}] = 1/0.00003;
 
         rates[{Currency::USD, Currency::RUB}] = 1 / rates[{Currency::RUB, Currency::USD}];
         rates[{Currency::EUR, Currency::RUB}] = 1 / rates[{Currency::RUB, Currency::EUR}];
@@ -48,7 +48,7 @@ public:
         std::cout << std::fixed << std::setprecision(6);
         std::cout << "Текущие курсы:\n";
         for (const auto& rate : rates) {
-            //std::cout << CURRENCY_NAMES[rate.first.first] << " -> " << CURRENCY_NAMES[rate.first.second] << ": " << rate.second << "\n";
+            std::cout << getCurrecyNameByEnum(rate.first.first) << " -> " << getCurrecyNameByEnum(rate.first.second) << ": " << rate.second << "\n";
         }
     }
 
